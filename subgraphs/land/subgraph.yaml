@@ -8,9 +8,9 @@ dataSources:
     name: Land
     network: mainnet
     source:
-      address: '0x17c14fC26d2aa58e0246984CFF8608075416ca64'
+      address: '0x80974C4249b212178B4B54f63F6F4d6597C71c0f'
       abi: Land
-      startBlock: 2994632
+      startBlock: 7026465
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -31,9 +31,9 @@ dataSources:
     name: LandBundle
     network: mainnet
     source:
-      address: '0x17c14fC26d2aa58e0246984CFF8608075416ca64'
+      address: '0x9299C332Db2AFD9B52dC234DdA2BA5614A2dC744'
       abi: LandBundle
-      startBlock: 2994632
+      startBlock: 7026562
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

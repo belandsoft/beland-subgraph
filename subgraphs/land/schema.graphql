@@ -11,7 +11,6 @@ type Parcel @entity {
 
 type Estate @entity {
   id: ID!
-  tokenId: BigInt!
   owner: Bytes!
   parcels: [Parcel!]
   size: Int
