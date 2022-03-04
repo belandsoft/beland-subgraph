@@ -6,8 +6,8 @@ export function handleTransfer(event: Transfer): void {
   let estate = Estate.load(event.params.tokenId.toString());
   if (!estate) {
     estate = new Estate(event.params.tokenId.toString());
+    estate.parcels = [];
   }
-  estate.parcels = [];
   estate.owner = event.params.to;
   estate.save();
 }
