@@ -1,0 +1,57 @@
+specVersion: 0.0.2
+description: Beland Land
+repository: https://github.com/belandsoft
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Land
+    network: mainnet
+    source:
+      address: '0x17c14fC26d2aa58e0246984CFF8608075416ca64'
+      abi: Land
+      startBlock: 2994632
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/land.ts
+      entities:
+        - Land
+      abis:
+        - name: Land
+          file: ./abis/Land.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MetadataUpdate(uint256,string)
+          handler: handleUpdateMetadata
+
+  - kind: ethereum/contract
+    name: LandBundle
+    network: mainnet
+    source:
+      address: '0x17c14fC26d2aa58e0246984CFF8608075416ca64'
+      abi: LandBundle
+      startBlock: 2994632
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/land-bundle.ts
+      entities:
+        - LandBundle
+      abis:
+        - name: LandBundle
+          file: ./abis/Bundle.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: BundleNew(uint256,uint256[])
+          handler: handleCreateBundle
+        - event: BundleAdd(uint256,uint256[])
+          handler: handleBundleAddItems
+        - event: BundleRemove(uint256,uint256[])
+          handler: handleBundleRemoveItems
+        - event: MetadataUpdate(uint256,string)
+          handler: handleUpdateMetadata

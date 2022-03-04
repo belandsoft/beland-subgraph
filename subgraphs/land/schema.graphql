@@ -1,0 +1,31 @@
+# aka LAND
+type Parcel @entity {
+  id: ID!
+  owner: Bytes!
+  x: BigInt!
+  y: BigInt!
+  estate: Estate
+  data: Data
+  rawData: String
+}
+
+type Estate @entity {
+  id: ID!
+  tokenId: BigInt!
+  owner: Bytes!
+  parcels: [Parcel!]
+  size: Int
+  data: Data
+  rawData: String
+}
+
+type Data @entity {
+  id: ID!
+  parcel: Parcel
+  estate: Estate
+  version: String!
+  name: String
+  description: String
+  ipns: String
+}
+

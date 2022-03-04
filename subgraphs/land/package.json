@@ -1,0 +1,13 @@
+{
+  "name": "lan",
+  "description": "Beland Subgraph",
+  "version": "1.0.0",
+  "repository": "git@github.com:belandsoft/beland-subgraph.git",
+  "author": "Beland",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen subgraph.yaml",
+    "build": "graph build subgraph.yaml",
+    "deploy": "graph deploy --product hosted-service --ipfs http://localhost:5001 --node http://localhost:8020 beland/land subgraph.yaml"
+  }
+}
