@@ -5,8 +5,13 @@ type Parcel @entity {
   x: BigInt!
   y: BigInt!
   estate: Estate
-  data: Data
+  name: String
+  description: String
+  ipns: String
+  version: String
   rawData: String
+  createdAt: BigInt!
+  updatedAt: BigInt!
 }
 
 type Estate @entity {
@@ -14,17 +19,11 @@ type Estate @entity {
   owner: Bytes!
   parcels: [Parcel!]
   size: Int
-  data: Data
-  rawData: String
-}
-
-type Data @entity {
-  id: ID!
-  parcel: Parcel
-  estate: Estate
-  version: String!
   name: String
   description: String
   ipns: String
+  version: String
+  rawData: String
+  createdAt: BigInt!
+  updatedAt: BigInt!
 }
-

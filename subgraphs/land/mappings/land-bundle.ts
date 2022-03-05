@@ -1,6 +1,6 @@
 import { Transfer, BundleNew, BundleAdd, BundleRemove, MetadataUpdate } from "../generated/LandBundle/LandBundle";
-import { Data, Estate, Parcel } from "../generated/schema";
-import { buildData, DataType } from "./data";
+import { Estate, Parcel } from "../generated/schema";
+import { buildData } from "./data";
 
 export function handleTransfer(event: Transfer): void {
   let estate = Estate.load(event.params.tokenId.toString());
@@ -8,8 +8,10 @@ export function handleTransfer(event: Transfer): void {
     estate = new Estate(event.params.tokenId.toString());
     estate.parcels = [];
     estate.size = 0;
+    estate.createdAt = event.block.timestamp;
   }
   estate.owner = event.params.to;
+  estate.updatedAt = event.block.timestamp;
   estate.save();
 }
 
@@ -58,11 +60,13 @@ export function handleUpdateMetadata(event: MetadataUpdate): void {
   let estate = Estate.load(event.params.tokenId.toString());
   let data = event.params.data.toString();
   estate.rawData = data;
-  let estateDataId = "ESTATE-" + estate.id;
-  let estateData = buildData(estateDataId, data, DataType.ESTATE);
+  let estateData = buildData(data);
   if (estateData != null) {
-    estate.data = estateDataId;
-    estateData.save();
+    estate.name = estateData.name;
+    estate.description = estateData.description;
+    estate.version = estateData.version;
+    estate.ipns = estateData.ipns;
   }
+  estate.updatedAt = event.block.timestamp;
   estate.save();
 }

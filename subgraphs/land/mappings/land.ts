@@ -13,7 +13,9 @@ export function handleTransfer(event: Transfer): void {
     parcel = new Parcel(event.params.tokenId.toString());
     parcel.x = event.params.tokenId.mod(WIDTH);
     parcel.y = event.params.tokenId.div(HEIGHT);
+    parcel.createdAt = event.block.timestamp;
   }
+  parcel.updatedAt = event.block.timestamp;
   parcel.owner = event.params.to;
   parcel.save();
 }
@@ -22,11 +24,13 @@ export function handleUpdateMetadata(event: MetadataUpdate): void {
   let parcel = Parcel.load(event.params.tokenId.toString());
   let data = event.params.data.toString();
   parcel.rawData = data;
-  let parcelDataId = "PARCEL-" + parcel.id;
-  let parcelData = buildData(parcelDataId, data, DataType.PARCEL);
+  let parcelData = buildData(data);
   if (parcelData != null) {
-    parcel.data = parcelDataId;
-    parcelData.save();
+    parcel.name = parcelData.name;
+    parcel.description = parcelData.description;
+    parcel.ipns = parcelData.ipns;
+    parcel.version = parcelData.version;
   }
+  parcel.updatedAt = event.block.timestamp;
   parcel.save();
 }
