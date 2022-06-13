@@ -13,7 +13,7 @@ export class DataEntry {
 }
 
 export function buildData(csv: string): DataEntry | null {
-  const dataEntity: DataEntry = {
+  let dataEntity: DataEntry = {
     name: "",
     description: "",
     ipns: "",
@@ -24,7 +24,7 @@ export function buildData(csv: string): DataEntry | null {
     return null;
   }
 
-  const data = parseCSV(csv);
+  let data = parseCSV(csv);
   if (data.length === 0 || data[0] != "0") {
     return null;
   }

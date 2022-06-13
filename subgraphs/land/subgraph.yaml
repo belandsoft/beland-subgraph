@@ -38,7 +38,7 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./mappings/land-bundle.ts
+      file: ./mappings/estate.ts
       entities:
         - LandBundle
       abis:

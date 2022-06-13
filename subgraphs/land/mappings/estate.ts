@@ -17,11 +17,11 @@ export function handleTransfer(event: Transfer): void {
 }
 
 export function handleCreateBundle(event: BundleNew): void {
-  const estate = Estate.load(event.params.tokenId.toString());
-  const tokenIds = event.params.tokenIds;
+  let estate = Estate.load(event.params.tokenId.toString());
+  let tokenIds = event.params.tokenIds;
 
   for (let i = 0; i < tokenIds.length; i++) {
-    const parcel = Parcel.load(tokenIds[i].toString());
+    let parcel = Parcel.load(tokenIds[i].toString());
     parcel.estate = estate.id;
     parcel.save();
   }
@@ -32,10 +32,10 @@ export function handleCreateBundle(event: BundleNew): void {
 }
 
 export function handleBundleAddItems(event: BundleAdd): void {
-  const estate = Estate.load(event.params.tokenId.toString());
-  const tokenIds = event.params.tokenIds;
+  let estate = Estate.load(event.params.tokenId.toString());
+  let tokenIds = event.params.tokenIds;
   for (let i = 0; i < tokenIds.length; i++) {
-    const parcel = Parcel.load(tokenIds[i].toString());
+    let parcel = Parcel.load(tokenIds[i].toString());
     parcel.estate = estate.id;
     parcel.save();
   }
@@ -45,11 +45,11 @@ export function handleBundleAddItems(event: BundleAdd): void {
 }
 
 export function handleBundleRemoveItems(event: BundleRemove): void {
-  const estate = Estate.load(event.params.tokenId.toString());
-  const tokenIds = event.params.tokenIds;
+  let estate = Estate.load(event.params.tokenId.toString());
+  let tokenIds = event.params.tokenIds;
   for (let i = 0; i < tokenIds.length; i++) {
-    const parcelId = tokenIds.toString();
-    const parcel = Parcel.load(parcelId);
+    let parcelId = tokenIds.toString();
+    let parcel = Parcel.load(parcelId);
     parcel.estate = null;
     parcel.save();
     estate.parcels.splice(estate.parcels.indexOf(parcelId), 1);
@@ -59,15 +59,15 @@ export function handleBundleRemoveItems(event: BundleRemove): void {
 }
 
 export function handleUpdateMetadata(event: MetadataUpdate): void {
-  const estate = Estate.load(event.params.tokenId.toString());
-  const data = event.params.data.toString();
+  let estate = Estate.load(event.params.tokenId.toString());
+  let data = event.params.data.toString();
   buildMetadata(estate, data, event);
   estate.save();
 }
 
-function buildMetadata(estate: Estate, data: string, event: ethereum.Event) {
+function buildMetadata(estate: Estate | null, data: string, event: ethereum.Event): void{
   estate.rawData = data;
-  const estateData = buildData(data);
+  let estateData = buildData(data);
   if (estateData != null) {
     estate.name = estateData.name;
     estate.description = estateData.description;
