@@ -31,9 +31,9 @@ dataSources:
     name: LandBundle
     network: mainnet
     source:
-      address: '0x9299C332Db2AFD9B52dC234DdA2BA5614A2dC744'
+      address: '0x871F3a16fF9d267854628966a2bA36665e0bD437'
       abi: LandBundle
-      startBlock: 7026562
+      startBlock: 8539647
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -47,7 +47,7 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-        - event: BundleNew(uint256,uint256[])
+        - event: BundleNew(uint256,uint256[],string)
           handler: handleCreateBundle
         - event: BundleAdd(uint256,uint256[])
           handler: handleBundleAddItems
