@@ -3,6 +3,8 @@ import { Transfer, BundleNew, BundleAdd, BundleRemove, MetadataUpdate } from "..
 import { Estate, Parcel } from "../generated/schema";
 import { buildData } from "./data";
 
+let ZERO_ADDR = '0x0000000000000000000000000000000000000000'
+
 export function handleTransfer(event: Transfer): void {
   let estate = Estate.load(event.params.tokenId.toString());
   if (!estate) {
@@ -13,6 +15,9 @@ export function handleTransfer(event: Transfer): void {
   }
   estate.owner = event.params.to;
   estate.updatedAt = event.block.timestamp;
+  if (estate.owner.toHex() == ZERO_ADDR) {
+    estate.parcels = [];
+  }
   estate.save();
 }
 
