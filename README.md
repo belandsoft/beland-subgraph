@@ -1,4 +1,4 @@
-# Beland Subgraph
+# Memetaverse Subgraph
 
 
 ## To setup and deploy
