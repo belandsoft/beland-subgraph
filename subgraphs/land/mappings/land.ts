@@ -1,36 +1,39 @@
-import { BigInt } from "@graphprotocol/graph-ts";
-import { Transfer } from "../generated/Land/Land";
 import { MetadataUpdate } from "../generated/LandBundle/LandBundle";
-import { Parcel } from "../generated/schema";
-import { buildData } from "./data";
-
-let WIDTH = BigInt.fromI32(300);
-let HEIGHT = BigInt.fromI32(300);
+import { NFT, Parcel } from "../generated/schema";
+import { DataType, buildData } from "./data";
+import { getNFTId } from "../utils/nfts";
+import * as categories from '../utils/category/categories'
+import * as addresses from '../data/addresses';
+import { decodeTokenId, getParcelText } from "../utils/parcel";
+import { handleTransfer as handleBaseTransfer } from './nft'
+import { Transfer } from "../generated/Land/ERC721";
 
 export function handleTransfer(event: Transfer): void {
-  let parcel = Parcel.load(event.params.tokenId.toString());
-  if (!parcel) {
-    parcel = new Parcel(event.params.tokenId.toString());
-    parcel.x = event.params.tokenId.mod(WIDTH);
-    parcel.y = event.params.tokenId.div(HEIGHT);
-    parcel.createdAt = event.block.timestamp;
-  }
-  parcel.updatedAt = event.block.timestamp;
-  parcel.owner = event.params.to;
-  parcel.save();
+  handleBaseTransfer(event)
 }
 
-export function handleUpdateMetadata(event: MetadataUpdate): void {
-  let parcel = Parcel.load(event.params.tokenId.toString());
-  let data = event.params.data.toString();
-  parcel.rawData = data;
-  let parcelData = buildData(data);
+export function handleUpdate(event: MetadataUpdate): void {
+  let parcelId = event.params.tokenId.toString()
+  let data = event.params.data.toString()
+  let id = getNFTId(categories.PARCEL, addresses.Land, parcelId)
+  let parcel = new Parcel(id)
+  parcel.rawData = data
+
+  let parcelData = buildData(id, data, DataType.PARCEL)
   if (parcelData != null) {
-    parcel.name = parcelData.name;
-    parcel.description = parcelData.description;
-    parcel.ipns = parcelData.ipns;
-    parcel.version = parcelData.version;
+    parcel.data = id
+    parcelData.save()
+
+    let coordinates = decodeTokenId(event.params.tokenId)
+    parcel.x = coordinates[0]
+    parcel.y = coordinates[1]
+
+    let nft = new NFT(id)
+    nft.name = parcelData.name
+    nft.searchText = getParcelText(parcel, parcelData.name!)
+    nft.updatedAt = event.block.timestamp
+    nft.save()
   }
-  parcel.updatedAt = event.block.timestamp;
-  parcel.save();
+
+  parcel.save()
 }

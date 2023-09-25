@@ -1,6 +1,6 @@
 specVersion: 0.0.2
-description: Beland Timelock
-repository: https://github.com/belandsoft
+description: Memetaverse Timelock
+repository: https://github.com/memetaverseproject
 schema:
   file: ./schema.graphql
 dataSources:

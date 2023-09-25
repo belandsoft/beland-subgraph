@@ -1,6 +1,6 @@
 specVersion: 0.0.2
-description: Beland Land
-repository: https://github.com/belandsoft
+description: Memetaverse Land
+repository: https://github.com/memetaverseproject
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,9 +8,9 @@ dataSources:
     name: Land
     network: mainnet
     source:
-      address: '0x80974C4249b212178B4B54f63F6F4d6597C71c0f'
+      address: '0xceA129368E02f8d7d917A0154Ee7B49B47619c7E'
       abi: Land
-      startBlock: 7026465
+      startBlock: 5513308
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -21,19 +21,21 @@ dataSources:
       abis:
         - name: Land
           file: ./abis/Land.json
+        - name: ERC721
+          file: ./abis/ERC721.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
         - event: MetadataUpdate(uint256,string)
-          handler: handleUpdateMetadata
+          handler: handleUpdate
 
   - kind: ethereum/contract
     name: LandBundle
     network: mainnet
     source:
-      address: '0x871F3a16fF9d267854628966a2bA36665e0bD437'
+      address: '0x4Bb2ecddE22d1279270049bE8416B2212CE6DA91'
       abi: LandBundle
-      startBlock: 8539647
+      startBlock: 5611129
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -44,6 +46,8 @@ dataSources:
       abis:
         - name: LandBundle
           file: ./abis/Bundle.json
+        - name: ERC721
+          file: ./abis/ERC721.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
@@ -54,4 +58,38 @@ dataSources:
         - event: BundleRemove(uint256,uint256[])
           handler: handleBundleRemoveItems
         - event: MetadataUpdate(uint256,string)
-          handler: handleUpdateMetadata
+          handler: handleUpdate
+# ---------------------------------------------------------
+# TEMPLATES -----------------------------------------------
+# ---------------------------------------------------------
+# templates:
+#   - name: ERC721
+#     kind: ethereum/contract
+#     network: mainnet
+#     source:
+#       abi: ERC721
+#     mapping:
+#       kind: ethereum/events
+#       apiVersion: 0.0.4
+#       language: wasm/assemblyscript
+#       file: ./mappings/nft.ts
+#       entities:
+#         - NFT
+#         - Parcel
+#         - Estate
+#         - Wearable
+#         - ENS
+#       abis:
+#         - name: ERC721
+#           file: ./abis/ERC721.json
+#         - name: LAND
+#           file: ./abis/Land.json
+#       eventHandlers:
+#         - event: Transfer(indexed address,indexed address,indexed uint256,address,bytes,bytes)
+#           handler: handleTransfer
+#         - event: Transfer(indexed address,indexed address,indexed uint256,address,bytes)
+#           handler: handleTransfer
+#         - event: Transfer(indexed address,indexed address,indexed uint256)
+#           handler: handleTransfer
+#         - event: Transfer(indexed address,indexed address,uint256)
+#           handler: handleTransfer
