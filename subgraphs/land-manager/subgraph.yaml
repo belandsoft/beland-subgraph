@@ -1,0 +1,69 @@
+specVersion: 0.0.2
+description: Memetaverse Land
+repository: https://github.com/memetaverseproject
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Land
+    network: mainnet
+    source:
+      address: '0xceA129368E02f8d7d917A0154Ee7B49B47619c7E'
+      abi: Land
+      startBlock: 5513308
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/parcel.ts
+      entities:
+        - Land
+      abis:
+        - name: Land
+          file: ./abis/Land.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MetadataUpdate(uint256,string)
+          handler: handleUpdate
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: SetOperator(uint256,address)
+          handler: handleSetOperator
+
+  - kind: ethereum/contract
+    name: LandBundle
+    network: mainnet
+    source:
+      address: '0x4Bb2ecddE22d1279270049bE8416B2212CE6DA91'
+      abi: LandBundle
+      startBlock: 5611129
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./mappings/estate.ts
+      entities:
+        - LandBundle
+      abis:
+        - name: LandBundle
+          file: ./abis/Bundle.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: MetadataUpdate(uint256,string)
+          handler: handleUpdate
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: BundleNew(uint256,uint256[],string)
+          handler: handleCreateBundle
+        - event: BundleAdd(uint256,uint256[])
+          handler: handleBundleAddItems
+        - event: BundleRemove(uint256,uint256[])
+          handler: handleBundleRemoveItems
+        - event: SetOperator(uint256,address)
+          handler: handleSetOperator
