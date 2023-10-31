@@ -1,0 +1,36 @@
+specVersion: 0.0.4
+description: Memetaverse ThirdPartyRegistry
+repository: https://github.com/memetaverseproject
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: ThirdPartyRegistry
+    network: mainnet
+    source:
+      address: '0x3820970a74B93C1Ea7c09C0838232691149F5971'
+      abi: ThirdPartyRegistry
+      startBlock: 7006821
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./mappings/thirdparty.ts
+      entities:
+        - ThirdPartyRegistry
+      abis:
+        - name: ThirdPartyRegistry
+          file: ./abis/ThirdPartyRegistry.json
+      eventHandlers:
+        - event: ThirdPartyAdded(string,string,string,bool,address[],uint256,address)
+          handler: handleThirdPartyAdded
+        - event: ThirdPartyUpdated(string,string,string,address[],bool[],uint256,address)
+          handler: handleThirdPartyUpdated
+        - event: ThirdPartyItemSlotsBought(string,uint256,uint256,address)
+          handler: handleThirdPartyItemSlotsBought
+        - event: ThirdPartyReviewedWithRoot(string,bytes32,bool,address)
+          handler: handleThirdPartyReviewedWithRoot
+        - event: ThirdPartyReviewed(string,bool,address)
+          handler: handleThirdPartyReviewed
+        - event: ItemSlotsConsumed(string,uint256,indexed address,bytes32,indexed address)
+          handler: handleItemSlotsConsumed

@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 description: Memetaverse Land
 repository: https://github.com/memetaverseproject
 schema:
@@ -13,7 +13,7 @@ dataSources:
       startBlock: 5513308
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./mappings/parcel.ts
       entities:
@@ -42,7 +42,7 @@ dataSources:
       startBlock: 5611129
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./mappings/estate.ts
       entities:
