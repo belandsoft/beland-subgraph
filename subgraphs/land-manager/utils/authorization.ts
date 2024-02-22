@@ -1,13 +1,7 @@
-import { ethereum, Entity, Value, Bytes, BigInt, store, Address } from "@graphprotocol/graph-ts";
-import { NFTType } from "../utils/nft";
+import { ethereum, Entity, Value, BigInt, store, Address } from "@graphprotocol/graph-ts";
+import * as NFTType from "../utils/nft";
 import { Authorization } from "../generated/schema";
 
-export class AuthorizationType {
-  static OWNER: string = "Owner";
-  static OPERATOR: string = "Operator";
-  static UPDATE_OPERATOR: string = "UpdateOperator";
-  static MANAGER: string = "UpdateManager";
-}
 
 export function createAuthorizationId(event: ethereum.Event, type: string): string {
   return event.block.number.toString() + "-" + event.logIndex.toString() + "-" + type;

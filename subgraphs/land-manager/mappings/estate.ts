@@ -11,9 +11,10 @@ import {
 } from "../generated/LandBundle/LandBundle";
 import { DataType, buildData } from "../utils/data";
 import { createWallet } from "../utils/wallet";
-import { AuthorizationType, buildAuthorization, createOwnership } from "../utils/authorization";
-import { NFTType } from "../utils/nft";
-import { EventType } from "../utils/event";
+import { buildAuthorization, createOwnership } from "../utils/authorization";
+import * as AuthorizationType from '../utils/authorization-types'
+import * as NFTType from "../utils/nft";
+import * as EventType from "../utils/event-types";
 
 export function handleTransfer(event: Transfer): void {
   let id = event.params.tokenId.toString();

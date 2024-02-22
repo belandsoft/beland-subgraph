@@ -236,7 +236,7 @@ type Rarity @entity {
 }
 
 enum Currency @entity {
-  MANA
+  MTV
   USD
 }
 

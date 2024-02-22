@@ -7,9 +7,9 @@
           "type": "address"
         },
         {
-          "internalType": "address",
-          "name": "_implementation",
-          "type": "address"
+          "internalType": "address[]",
+          "name": "_members",
+          "type": "address[]"
         }
       ],
       "stateMutability": "nonpayable",
@@ -21,23 +21,42 @@
         {
           "indexed": true,
           "internalType": "address",
-          "name": "_implementation",
+          "name": "_member",
           "type": "address"
         },
         {
           "indexed": false,
-          "internalType": "bytes32",
-          "name": "_codeHash",
-          "type": "bytes32"
+          "internalType": "bool",
+          "name": "_value",
+          "type": "bool"
+        }
+      ],
+      "name": "MemberSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "userAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "relayerAddress",
+          "type": "address"
         },
         {
           "indexed": false,
           "internalType": "bytes",
-          "name": "_code",
+          "name": "functionSignature",
           "type": "bytes"
         }
       ],
-      "name": "ImplementationSet",
+      "name": "MetaTransactionExecuted",
       "type": "event"
     },
     {
@@ -60,27 +79,47 @@
       "type": "event"
     },
     {
-      "anonymous": false,
-      "inputs": [
+      "inputs": [],
+      "name": "domainSeparator",
+      "outputs": [
         {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_address",
-          "type": "address"
-        },
-        {
-          "indexed": false,
           "internalType": "bytes32",
-          "name": "_salt",
+          "name": "",
           "type": "bytes32"
         }
       ],
-      "name": "ProxyCreated",
-      "type": "event"
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      "inputs": [],
-      "name": "code",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "userAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "functionSignature",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "sigR",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "sigS",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint8",
+          "name": "sigV",
+          "type": "uint8"
+        }
+      ],
+      "name": "executeMetaTransaction",
       "outputs": [
         {
           "internalType": "bytes",
@@ -88,48 +127,35 @@
           "type": "bytes"
         }
       ],
-      "stateMutability": "view",
+      "stateMutability": "payable",
       "type": "function"
     },
     {
       "inputs": [],
-      "name": "codeHash",
+      "name": "getChainId",
       "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
         {
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
       ],
-      "name": "collections",
-      "outputs": [
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
           "internalType": "address",
-          "name": "",
+          "name": "user",
           "type": "address"
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "collectionsSize",
+      "name": "getNonce",
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "",
+          "name": "nonce",
           "type": "uint256"
         }
       ],
@@ -139,9 +165,19 @@
     {
       "inputs": [
         {
-          "internalType": "bytes32",
-          "name": "_salt",
-          "type": "bytes32"
+          "internalType": "contract ICollectionManager",
+          "name": "_collectionManager",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_forwarder",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_collection",
+          "type": "address"
         },
         {
           "internalType": "bytes",
@@ -149,68 +185,20 @@
           "type": "bytes"
         }
       ],
-      "name": "createCollection",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "addr",
-          "type": "address"
-        }
-      ],
+      "name": "manageCollection",
+      "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
         {
-          "internalType": "bytes32",
-          "name": "_salt",
-          "type": "bytes32"
-        },
-        {
-          "internalType": "address",
-          "name": "_address",
-          "type": "address"
-        },
-        {
-          "internalType": "bytes",
-          "name": "_data",
-          "type": "bytes"
-        }
-      ],
-      "name": "getAddress",
-      "outputs": [
-        {
           "internalType": "address",
           "name": "",
           "type": "address"
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "implementation",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "isCollectionFromFactory",
+      "name": "members",
       "outputs": [
         {
           "internalType": "bool",
@@ -237,6 +225,24 @@
     {
       "inputs": [],
       "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_members",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bool[]",
+          "name": "_values",
+          "type": "bool[]"
+        }
+      ],
+      "name": "setMembers",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

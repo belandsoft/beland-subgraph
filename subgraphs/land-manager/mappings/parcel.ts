@@ -1,11 +1,13 @@
 import { Parcel } from "../generated/schema";
 import { Approval, ApprovalForAll, MetadataUpdate, SetOperator, Transfer } from "../generated/Land/Land";
 import { decodeTokenId } from "../utils/parcel";
-import { AuthorizationType, buildAuthorization, createOwnership } from "../utils/authorization";
-import { NFTType } from "../utils/nft";
+import { buildAuthorization, createOwnership } from "../utils/authorization";
 import { createWallet } from "../utils/wallet";
-import { EventType } from "../utils/event";
 import { DataType, buildData } from "../utils/data";
+import * as AuthorizationType from '../utils/authorization-types'
+import * as NFTType from "../utils/nft";
+import * as EventType from "../utils/event-types";
+
 
 export function handleTransfer(event: Transfer): void {
   let coordinates = decodeTokenId(event.params.tokenId);
@@ -99,4 +101,9 @@ export function handleSetOperator(event: SetOperator): void {
     event.params.operator,
     event.params.tokenId
   );
+}
+
+
+export function demo() : number {
+  return 1;
 }

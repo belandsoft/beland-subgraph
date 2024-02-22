@@ -1,4 +1,2 @@
-export class NFTType {
-  static PARCEL = "parcel";
-  static ESTATE = "estate";
-}
+export const PARCEL = "parcel";
+export const  ESTATE = "estate";

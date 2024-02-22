@@ -14,6 +14,7 @@ export function buildData(assetId: string, csv: string, dataType: DataType): Dat
   }
 
   let data = parseCSV(csv);
+
   if (data.length === 0 || data[0] != "0") {
     return null;
   }
@@ -31,7 +32,9 @@ export function buildData(assetId: string, csv: string, dataType: DataType): Dat
   }
 
   switch (dataType) {
+
     case DataType.PARCEL: {
+      
       dataEntity.parcel = assetId;
       break;
     }
