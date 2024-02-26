@@ -32,9 +32,7 @@ export function buildData(assetId: string, csv: string, dataType: DataType): Dat
   }
 
   switch (dataType) {
-
     case DataType.PARCEL: {
-      
       dataEntity.parcel = assetId;
       break;
     }

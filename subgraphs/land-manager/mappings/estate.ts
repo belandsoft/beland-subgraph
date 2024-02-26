@@ -12,7 +12,7 @@ import {
 import { DataType, buildData } from "../utils/data";
 import { createWallet } from "../utils/wallet";
 import { buildAuthorization, createOwnership } from "../utils/authorization";
-import * as AuthorizationType from '../utils/authorization-types'
+import * as AuthorizationType from "../utils/authorization-types";
 import * as NFTType from "../utils/nft";
 import * as EventType from "../utils/event-types";
 

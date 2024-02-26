@@ -2,6 +2,7 @@
   {
     "inputs": [],
     "stateMutability": "nonpayable",
+    "name": "constructor",
     "type": "constructor"
   },
   {

@@ -1,26 +1,25 @@
-import { Item } from "../../generated/schema"
-import { getCatalystBase } from '../catalyst'
-
+import { Item } from "../../generated/schema";
+import { getCatalystBase } from "../catalyst";
 
 export function getItemId(contractAddress: string, itemId: string): string {
-  return contractAddress + '-' + itemId
+  return contractAddress + "-" + itemId;
 }
 
 export function getItemImage(item: Item): string {
-  let baseURI = getCatalystBase()
+  let baseURI = getCatalystBase();
 
-  return baseURI + '/lambdas/collections/contents/' + item.urn + '/thumbnail'
+  return baseURI + "/lambdas/collections/contents/" + item.urn + "/thumbnail";
 }
 
 export function removeItemMinter(item: Item, minter: string): Array<string> {
-  let newMinters = new Array<string>(0)
-  let minters = item.minters
+  let newMinters = new Array<string>(0);
+  let minters = item.minters;
 
   for (let i = 0; i < minters.length; i++) {
     if (minters[i] != minter) {
-      newMinters.push(minters[i])
+      newMinters.push(minters[i]);
     }
   }
 
-  return newMinters
+  return newMinters;
 }

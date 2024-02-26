@@ -94,6 +94,29 @@ dataSources:
       eventHandlers:
         - event: RaritiesSet(indexed address,indexed address)
           handler: handleRaritiesSet
+  # ---------------------------------------------------------
+  # Committee ----------------------------------------------------
+  # ---------------------------------------------------------
+  - kind: ethereum/contract
+    name: Committee
+    network: mainnet
+    source:
+      address: '0xBBe6A84AA3f886f3EE861A98B313c1D5DA0c3002'
+      abi: Committee
+      startBlock: 17849800
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./mappings/committee.ts
+      entities:
+        - Account
+      abis:
+        - name: Committee
+          file: ./abis/Committee.json
+      eventHandlers:
+        - event: MemberSet(indexed address,bool)
+          handler: handleMemeberSet
 templates:
   # ---------------------------------------------------------
   # Items V2 ------------------------------------------------

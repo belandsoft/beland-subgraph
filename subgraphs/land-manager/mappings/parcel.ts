@@ -4,10 +4,9 @@ import { decodeTokenId } from "../utils/parcel";
 import { buildAuthorization, createOwnership } from "../utils/authorization";
 import { createWallet } from "../utils/wallet";
 import { DataType, buildData } from "../utils/data";
-import * as AuthorizationType from '../utils/authorization-types'
+import * as AuthorizationType from "../utils/authorization-types";
 import * as NFTType from "../utils/nft";
 import * as EventType from "../utils/event-types";
-
 
 export function handleTransfer(event: Transfer): void {
   let coordinates = decodeTokenId(event.params.tokenId);
@@ -103,7 +102,6 @@ export function handleSetOperator(event: SetOperator): void {
   );
 }
 
-
-export function demo() : number {
+export function demo(): number {
   return 1;
 }
