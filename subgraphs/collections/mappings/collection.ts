@@ -45,6 +45,7 @@ export function handleCollectionCreation(event: ProxyCreated): void {
   collection.symbol = collectionContract.symbol();
   collection.owner = collectionContract.owner().toHexString();
   collection.creator = collectionContract.creator().toHexString();
+  collection.txHash = event.transaction.hash;
   collection.isCompleted = collectionContract.isCompleted();
   collection.isApproved = isApproved;
   collection.isEditable = collectionContract.isEditable();

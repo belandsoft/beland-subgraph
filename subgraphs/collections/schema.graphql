@@ -20,6 +20,8 @@ type Collection @entity {
   # Searcheable fields
   searchIsStoreMinter: Boolean!
   searchText: String!
+  
+  txHash: Bytes!
 }
 
 type Item @entity {
@@ -137,6 +139,8 @@ type NFT @entity {
   searchOrderPrice: BigInt
   searchOrderExpiresAt: BigInt
   searchOrderCreatedAt: BigInt
+
+  txHash: Bytes!
 }
 
 type Metadata @entity {

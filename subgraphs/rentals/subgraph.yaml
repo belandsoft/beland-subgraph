@@ -12,8 +12,8 @@ dataSources:
     network: mainnet
     source:
       abi: Rentals
-      startBlock: 18020458
-      address: '0xcb7a78dAb83e6C199F673F0B6F6bcef29Ad8B25b'
+      startBlock: 20709205
+      address: '0xADe3B854ba346fddF40De5bE9bc08231660EE774'
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

@@ -21,8 +21,8 @@ dataSources:
     network: mainnet
     source:
       abi: CollectionFactory
-      startBlock: 17635832
-      address: '0xcfAdaa4F84e55B3268eB9792b333f3Bf50B6E6b9'
+      startBlock: 20708746
+      address: '0xC642A294e9F2C9f489a0BEB85e1545Ed79f6663c'
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -51,9 +51,9 @@ dataSources:
     name: Rarity
     network: mainnet
     source:
-      address: '0x523cac2FA0B2c71531E8BCB87f6a31d0479213a0'
+      address: '0x68741B16564bD49948c4AF1B3a73d8069ee1AFc8'
       abi: Rarity
-      startBlock: 17629408
+      startBlock: 20707100
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -76,9 +76,9 @@ dataSources:
     name: CollectionManager
     network: mainnet
     source:
-      address: '0x650fC14De916c88b8aA743B1c0538E482982ff64'
+      address: '0xceA129368E02f8d7d917A0154Ee7B49B47619c7E'
       abi: CollectionManager
-      startBlock: 17633745
+      startBlock: 20707721
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -101,9 +101,9 @@ dataSources:
     name: Committee
     network: mainnet
     source:
-      address: '0xBBe6A84AA3f886f3EE861A98B313c1D5DA0c3002'
+      address: '0x078eE667EAce24b3d750d3dDa175fC86f942d912'
       abi: Committee
-      startBlock: 17849800
+      startBlock: 20707295
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

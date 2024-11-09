@@ -18,9 +18,8 @@ import { CollectionSale } from "../generated/templates";
 export function handleMintNFT(event: Issue, collectionAddress: string, item: Item): void {
   let nftId = getNFTId(collectionAddress, event.params._tokenId.toString());
   let nft = new NFT(nftId);
-
   let issuedId = event.params._issuedId;
-
+  
   let collection = Collection.load(collectionAddress);
   if (!collection) {
     return;
@@ -39,6 +38,7 @@ export function handleMintNFT(event: Issue, collectionAddress: string, item: Ite
   nft.tokenURI = item.URI + "/" + issuedId.toString();
   nft.image = item.image;
   nft.metadata = item.metadata;
+  nft.txHash = event.transaction.hash;
 
   nft.createdAt = event.block.timestamp;
   nft.updatedAt = event.block.timestamp;
