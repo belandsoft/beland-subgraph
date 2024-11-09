@@ -29,11 +29,9 @@ import { getURNNetwork } from "../network";
 //     return ''
 // }
 
-
 // export function getWearableURN(wearable: WearableEntity): string {
 //     return 'urn:memetaverse:' + getURNNetwork() + ':collections-v1:' + wearable.collection + ':' + wearable.representationId
 // }
-
 
 // export function isWearableHead(wearable: WearableEntity): boolean {
 //     let category = wearable.category

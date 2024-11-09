@@ -1,0 +1,192 @@
+
+# // Fowarder: 0xccFAcC7911F1319B7B295EdC84a399B98160833f
+# // Collection: 0xa8b931f1862d0EBcA64cFD22efEfF1583bCE2C12
+# // CollectionFactory: 0xcfAdaa4F84e55B3268eB9792b333f3Bf50B6E6b9
+# // Rarities: 0x523cac2FA0B2c71531E8BCB87f6a31d0479213a0
+# // CollectionManager: 0x650fC14De916c88b8aA743B1c0538E482982ff64
+# // UpgradeableBeacon: 0x83181fF037dE476280D383E92AD8E8923de77F01
+
+
+specVersion: 0.0.4
+description: Memetaverse CollectionFactory
+repository: https://github.com/memetaverseproject
+schema:
+  file: ./schema.graphql
+dataSources:
+  # ---------------------------------------------------------
+  # Collection Factory -----------------------------------
+  # ---------------------------------------------------------
+  - kind: ethereum/contract
+    name: CollectionFactory
+    network: mainnet
+    source:
+      abi: CollectionFactory
+      startBlock: 20708746
+      address: '0xC642A294e9F2C9f489a0BEB85e1545Ed79f6663c'
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Collection
+        - Item
+        - NFT
+        - Account
+      abis:
+        - name: CollectionFactory
+          file: ./abis/CollectionFactory.json
+        - name: Collection
+          file: ./abis/Collection.json
+        - name: CollectionSale
+          file: ./abis/CollectionSale.json
+      eventHandlers:
+        - event: ProxyCreated(indexed address,bytes32)
+          handler: handleCollectionCreation
+      file: ./mappings/collection.ts
+  
+  # ---------------------------------------------------------
+  # Rarity ----------------------------------------------------
+  # ---------------------------------------------------------
+  - kind: ethereum/contract
+    name: Rarity
+    network: mainnet
+    source:
+      address: '0x68741B16564bD49948c4AF1B3a73d8069ee1AFc8'
+      abi: Rarity
+      startBlock: 20707100
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./mappings/rarity.ts
+      entities:
+        - Rarity
+      abis:
+        - name: Rarity
+          file: ./abis/Rarity.json
+      eventHandlers:
+        - event: AddRarity((string,uint256,uint256))
+          handler: handleAddRarity
+        - event: UpdatePrice(string,uint256)
+          handler: handleUpdatePrice
+  # ---------------------------------------------------------
+  # CollectionManager ---------------------------------------
+  # ---------------------------------------------------------
+  - kind: ethereum/contract
+    name: CollectionManager
+    network: mainnet
+    source:
+      address: '0xceA129368E02f8d7d917A0154Ee7B49B47619c7E'
+      abi: CollectionManager
+      startBlock: 20707721
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./mappings/collectionManager.ts
+      entities:
+        - CollectionManager
+      abis:
+        - name: CollectionManager
+          file: ./abis/CollectionManager.json
+        - name: Rarity
+          file: ./abis/Rarity.json
+      eventHandlers:
+        - event: RaritiesSet(indexed address,indexed address)
+          handler: handleRaritiesSet
+  # ---------------------------------------------------------
+  # Committee ----------------------------------------------------
+  # ---------------------------------------------------------
+  - kind: ethereum/contract
+    name: Committee
+    network: mainnet
+    source:
+      address: '0x078eE667EAce24b3d750d3dDa175fC86f942d912'
+      abi: Committee
+      startBlock: 20707295
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./mappings/committee.ts
+      entities:
+        - Account
+      abis:
+        - name: Committee
+          file: ./abis/Committee.json
+      eventHandlers:
+        - event: MemberSet(indexed address,bool)
+          handler: handleMemeberSet
+templates:
+  # ---------------------------------------------------------
+  # Items V2 ------------------------------------------------
+  # ---------------------------------------------------------
+  - name: Collection
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Collection
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./mappings/collection.ts
+      entities:
+        - Collection
+        - Item
+        - NFT
+        - Account
+      abis:
+        - name: Collection
+          file: ./abis/Collection.json
+        - name: CollectionSale
+          file: ./abis/CollectionSale.json
+        - name: Rarity
+          file: ./abis/Rarity.json
+      eventHandlers:
+        - event: SetGlobalMinter(indexed address,bool)
+          handler: handleSetGlobalMinter
+        - event: SetGlobalManager(indexed address,bool)
+          handler: handleSetGlobalManager
+        - event: SetItemMinter(indexed uint256,indexed address,uint256)
+          handler: handleSetItemMinter
+        - event: SetItemManager(indexed uint256,indexed address,bool)
+          handler: handleSetItemManager
+        - event: AddItem(indexed uint256,(string,uint256,uint256,uint256,address,string,string))
+          handler: handleAddItem
+        - event: RescueItem(indexed uint256,string,string)
+          handler: handleRescueItem
+        - event: UpdateItemData(indexed uint256,uint256,address,string)
+          handler: handleUpdateItemData
+        - event: Issue(indexed address,indexed uint256,indexed uint256,uint256,address)
+          handler: handleIssue
+        - event: SetApproved(bool,bool)
+          handler: handleSetApproved
+        - event: SetEditable(bool,bool)
+          handler: handleSetEditable
+        - event: Complete()
+          handler: handleCompleteCollection
+        - event: CreatorshipTransferred(indexed address,indexed address)
+          handler: handleTransferCreatorship
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleTransferOwnership
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+  # ---------------------------------------------------------
+  # Collection Sale-----------------------------------------
+  # ---------------------------------------------------------
+  - name: CollectionSale
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: CollectionSale
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./mappings/nft.ts
+      entities:
+        - NFT
+      abis:
+      - name: CollectionSale
+        file: ./abis/CollectionSale.json

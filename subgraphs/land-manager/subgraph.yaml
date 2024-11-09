@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 description: Memetaverse Land
 repository: https://github.com/memetaverseproject
 schema:
@@ -8,12 +8,12 @@ dataSources:
     name: Land
     network: mainnet
     source:
-      address: '0xceA129368E02f8d7d917A0154Ee7B49B47619c7E'
+      address: '0x49E662ca18F7a2C7b38407f73928d5E83b688C69'
       abi: Land
-      startBlock: 5513308
+      startBlock: 20757796
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./mappings/parcel.ts
       entities:
@@ -37,12 +37,12 @@ dataSources:
     name: LandBundle
     network: mainnet
     source:
-      address: '0x4Bb2ecddE22d1279270049bE8416B2212CE6DA91'
+      address: '0x08D57719C68E1e925ADC293dB1CbEa8861fC4200'
       abi: LandBundle
-      startBlock: 5611129
+      startBlock: 20761048
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./mappings/estate.ts
       entities:

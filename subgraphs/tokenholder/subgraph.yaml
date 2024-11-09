@@ -1,0 +1,106 @@
+specVersion: 0.0.4
+description: Memetaverse Token Holder
+repository: https://github.com/memetaverseproject
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: U2V1
+    network: mainnet
+    source:
+      address: '0x7e4D89518be7B6f9e7D71E9310D53eb8951f8F0E'
+      abi: ERC20
+      startBlock: 890541
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./mappings/index.ts
+  - kind: ethereum/contract
+    name: U2V2
+    network: mainnet
+    source:
+      address: '0x152f786E5226B8236481c540427D5f3A377cC4Ba'
+      abi: ERC20
+      startBlock: 890541
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./mappings/index.ts
+  - kind: ethereum/contract
+    name: U2V3
+    network: mainnet
+    source:
+      address: '0x384691C7021B8519Bb28e1E42DBa75Db47A6e199'
+      abi: ERC20
+      startBlock: 890541
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./mappings/index.ts
+  - kind: ethereum/contract
+    name: U2V4
+    network: mainnet
+    source:
+      address: '0x21F8E6F991E3D9594D5c7637402ce0816165032c'
+      abi: ERC20
+      startBlock: 890541
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./mappings/index.ts
+  - kind: ethereum/contract
+    name: U2V5
+    network: mainnet
+    source:
+      address: '0xd58068BE3C7A4dCDDF922F04203595c07E950e95'
+      abi: ERC20
+      startBlock: 890541
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./mappings/index.ts

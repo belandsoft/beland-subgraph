@@ -1,0 +1,11 @@
+type User @entity {
+  id: ID! @id
+  balances: [TokenBalance!]! @derivedFrom(field: "user")
+}
+
+type TokenBalance @entity {
+  id: ID! @id
+  user: User!
+  tokenAddress: String!
+  balance: BigInt!
+}

@@ -1,0 +1,126 @@
+type Rental @entity {
+  id: ID!
+  contractAddress: String!
+  tokenId: BigInt!
+  lessor: String!
+  tenant: String!
+  operator: String!
+  rentalDays: BigInt!
+  startedAt: BigInt!
+  endsAt: BigInt!
+  updatedAt: BigInt!
+  pricePerDay: BigInt!
+  sender: String!
+  ownerHasClaimedAsset: Boolean!
+  claimedAt: BigInt
+  isExtension: Boolean!
+  isActive: Boolean!
+  signature: String!
+  rentalContractAddress: String!
+}
+
+# thegraph doesn't support count operations, but we need them to paginate results
+# This entity is a workaround to this issue, but it's still not enough, as we'd need counts for more complex queries
+type Count @entity {
+  id: ID!
+  value: BigInt!
+}
+
+enum IndexUpdateType @entity {
+  CONTRACT
+  SIGNER
+  ASSET
+}
+
+enum IndexUpdateEventType {
+  RENT
+  CANCEL
+}
+
+type IndexesUpdateHistory @entity {
+  id: ID!
+  type: IndexUpdateType!
+  date: BigInt!
+  sender: String!
+  contractUpdate: IndexesUpdateContractHistory
+  singerUpdate: IndexesUpdateSignerHistory
+  assetUpdate: IndexesUpdateAssetHistory
+}
+
+type IndexesUpdateContractHistory @entity {
+  id: ID!
+  newIndex: BigInt!
+  contractAddress: Bytes!
+}
+
+type IndexesUpdateSignerHistory @entity {
+  id: ID!
+  newIndex: BigInt!
+  signer: String!
+}
+
+type IndexesUpdateAssetHistory @entity {
+  id: ID!
+  newIndex: BigInt!
+  signer: String!
+  tokenId: BigInt!
+  contractAddress: String!
+  type: IndexUpdateEventType!
+}
+
+# This entity is used to track nft contracts being used for rentals.
+# This is used so no Rentable.create(contractAddress) is called more than once for the same contract.
+# The UpdateOperator event is emitted by these contracts (At least LAND and Estates).
+# So we need to handle these events from these contract for indexing purposes.
+type Rentable @entity {
+  id: ID!
+}
+
+# Assets that have been transferred in and out of the rentals contract.
+type RentalAsset @entity {
+  id: ID!
+  contractAddress: Bytes!
+  tokenId: BigInt!
+  # The address acting as lessor of the asset, will be null if the asset was claimed back.
+  lessor: Bytes
+  # Determines if the asset has been transferred out of the rentals contract through a claim.
+  isClaimed: Boolean!
+  claimedAt: BigInt
+}
+
+# Track of global values that do not require multiple entities
+type RentalsContract @entity {
+  # 'rentals-contract'
+  id: ID!
+  # The fee per 1_000_000 ERC20 tokens of the rental price that goes to the Fee Collector
+  fee: BigInt!
+}
+
+type AnalyticsTotalData @entity {
+  # "analytics-total-data"
+  id: ID!
+  # Amount of rentals made in total.
+  rentals: Int!
+  # Amount of ERC20 tokens spent in total
+  volume: BigInt!
+  # Amount of ERC20 tokens that lessors earned in total
+  lessorEarnings: BigInt!
+  # Amount of ERC20 tokens that the Fee Collector earned in total
+  feeCollectorEarnings: BigInt!
+}
+
+# Data accumulated and condensed into day stats for all of the Marketplace activity
+type AnalyticsDayData @entity {
+  # Current day since epoch start (Obtained by doing timestamp / 86400)
+  id: ID!
+  # Timestamp of the Day
+  date: Int!
+  # Amount of rentals made in the day.
+  rentals: Int!
+  # Amount of ERC20 tokens spent in the day in rentals
+  volume: BigInt!
+  # Amount of ERC20 tokens that lessors earned in the day
+  lessorEarnings: BigInt!
+  # Amount of ERC20 tokens that the Fee Collector earned in the day
+  feeCollectorEarnings: BigInt!
+}

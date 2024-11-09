@@ -1,6 +1,6 @@
-import { dataSource } from '@graphprotocol/graph-ts'
+import { dataSource } from "@graphprotocol/graph-ts";
 
 export function getURNNetwork(): string {
-  let network = dataSource.network()
-  return network == "mainnet" ? "u2u" : network
+  let network = dataSource.network();
+  return network == "mainnet" ? "u2u" : network;
 }

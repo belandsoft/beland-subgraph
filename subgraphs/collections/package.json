@@ -1,0 +1,14 @@
+{
+  "name": "collections",
+  "description": "Memetaverse Subgraph",
+  "version": "1.0.0",
+  "repository": "git@github.com:memetaverseproject/memetaverse-subgraph.git",
+  "author": "Memetaverse",
+  "license": "MIT",
+  "scripts": {
+    "create": "graph create --node http://localhost:8020 memetaverse/collections",
+    "codegen": "graph codegen subgraph.yaml",
+    "build": "graph build subgraph.yaml",
+    "deploy": "graph deploy --product hosted-service --ipfs http://localhost:5001 --node http://localhost:8020 memetaverse/collections subgraph.yaml"
+  }
+}
